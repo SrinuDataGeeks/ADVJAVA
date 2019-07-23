@@ -1,0 +1,203 @@
+Java is meant for developing Enterprice Applications.
+
+Enterprice Application :-
+**********************
+
+An Enterprice Application is a bussiness application which contains complex and heavy weight bussiness logics.
+
+Ex :- Bank Appliations , Online Store Applications (Flipkart,Amezon etc), Payroll Applications ,Heath Care Applications.
+
+The ultimate goal an Enterprice Application is to manupulate the business data. 
+
+But the Bussiness Data is available within the realational databases.
+
+** Here Databases represents the data in Relational Format Where as our Java Represents the data in Object Orientation Format.
+
+** These both are hetereozeneous technologies can not communicate with each other directly so that Sun Microsystems has given a Specification in the form of "JDBC".
+
+
+** Specification contains set of rules an regulations. In Java the specification can be defined in the form interfaces.
+
+** JDBC Specification comes with an API (Application Programming Interface) which contains set packages , subpackages,clasess and interfaces. These interfaces will be implemented different vedors like Oracle,MySQL,PostGre etc..
+
+** JDBC API comes in the form of "java.sql" packages.
+
+JDBC API Interfaces && Classes :-
+********************* ********
+
+	Class :-
+	*****
+	java.sql.DriverManager 
+	
+	Interfaces :-
+	**********
+	java.sql.Driver
+	java.sql.Connection
+	java.sql.Statement
+	java.sql.PreparedStatement
+	java.sql.ResultSet
+	java.sql.SQLException
+	etc
+All these interfaces are implemented by Oracle , all these implementation classes can be avaiable to us in the form of "Ojdbc14.jar" file.
+
+So that if we want to communicate with the Oracle database we should add "Ojdbc14.jar" file to our Jdbc Application as a class path.
+
+***********************************************
+
+Understanding a java.sql.Driver interface :-
+****************************
+=>  java.sql.Driver interface  is implemented by the DB vendor based on JDBC Specification which can be used to communicate with the database.
+
+=> Oracle Vendor given driver class is "OracleDriver". Which is available in "oracle.jdbc.driver" package.
+
+=> "oracle.jdbc.driver.OracleDriver" implements "java.sql.Driver" interface.
+
+
+
+To make a commucation to the database we need to do the following steps :
+
+	1.We need to create the Driver Class Object.
+
+	2. We need to register the Driver class with the DriverManager class.
+
+java.sql.DriverManager class:-
+**********************
+=> The DriverManager class can be used to register the Driver Class.
+=> The DriverManager class can also be used to get the Connection Object.
+
+The java.sql.DriverManager class has given following static methods.
+
+  public static synchronized void registerDriver(java.sql.Driver) throws SQLException 
+
+  public static java.sql.Connection getConnection(String url, String username, String password) throws SQLException;
+
+	
+Sample Code to register the driver class  :-
+
+	Driver obj = new OracleDriver();
+	DriverManager.registerDriver(obj);
+	
+
+In every  Vendor given Driver class we have the above logic within the "static block". So that if we load the Driver class into the RAM using "java.lang.Class" , JVM will automatically executes the static block.
+
+
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+
+
+
+java.sql.Connection interface:-
+*******************
+=> A "java.sql.Connection" is permission will be given by the Database inorder perform Database operations .
+
+=> The "java.sql.Connection" object can act as mediater between the java application and the database.
+
+=> Without Connection Object we can not perform any operation on the database.
+
+=> Here "java.sql.Connection" Object is nothing but one of its implementation class object . It will be return by the Database vendor.
+
+=> The "java.sql.DriverManager" has given "public static Connection getConnection(String url,String username,String password)" method to get the connection Object.
+
+
+url :-
+***
+jdbc:oracle:thin:@localhost:1521:XE
+	
+"jdbc:oracle" is an application level protocal. This is used to communicate Jdbc Application with Oracle Software.
+
+
+"thin" is a type4 driver given by JDBC to connect to database.
+
+
+"@localhost"  represents current system ip address. (If the Oracle Database is in other michine we should mention the ip address of the system)
+
+
+"1521" is a default port number  assigned by a Operating System  to Oracle Database.
+
+"XE" is the Default logical database service name given by Oracle Database.
+
+
+username :- "system"
+
+password : - "tiger"
+
+
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","admin");
+
+
+*****************************
+
+java.sql.SQLException :-
+*********************
+The "SQLException" is a checked exception which is thrown whenever DB returns error.
+
+
+Develop a Sample JdbcPrograme to create a Connection Obejct :-
+***********************************************************
+Before Compiling the Java programes we should set the class path :
+
+CMD > set classpath=.;<DIR_PATH>\ojdbc14.jar
+
+
+java.sql.Statement (Interface) :-
+******************
+
+=> JDBC api has given "java.sql.Statement" interface inorder to submit the SQL queries to the database.
+
+=> "java.sql.Connection" has give following method it will returns the "java.sql.Statement" Object.
+
+	public Statement createStatement() throws SQLException;
+
+=> "java.sql.Statement" Object means one of its implementation class Object.
+
+=> java.sql.Statement methods :-
+   ******************
+
+public int executeUpdate(String sql) throws SQLException:- Used to submit Non-Select Queries (insert ,update,delete).
+
+public ResultSet executeQuery(String sql) throws SQLException:- Used to submit Select Queries.
+
+
+Procedure to develop JDBC Application :-
+**************************************
+1. Load the Driver Class.
+2. Create a Connection Obejct.
+3. Create a Statement Object.
+4. Submit the Query.
+5. Process the Results.
+6. Release the Resources.
+7. Handling the Exceptions.
+
+
+Create a Following Table in Database :-
+**************************************
+
+Drop Table Product;
+
+Create Table Product(Pid Number(10) Primary Key , Pname Varchar2(15) , Price Number(10,2));
+
+SQL> Select * From Product;
+
+no rows selected
+
+
+Working with Non-Select Queries :-
+*******************************
+
+refer RegisterProduct.java,RegisterProductApp2.java,UpdateProductByIdApp.java,DeleteProductByIdApp.java programes
+
+Working with Select Queries :-
+***************************
+Insert following dummy data into Product Table (commit) :-
+
+SQL> Select * From Product;
+
+ 	PID PNAME 			PRICE
+---------- -------------------- ------------
+       444 Apple4s                     75000
+      1243  Apple                      50000
+      1242 Lenovo                       6000
+       333 LenovoK4                    15000
+       555 Apple7s                     75000
+       666 Apple6s                     65000
+
+
