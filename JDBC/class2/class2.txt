@@ -1,0 +1,90 @@
+To work with Select Queries the "java.sql.Statement" has given "public ResutlSet executeQuery(String sql) throws SQLException" method.
+
+Here "java.sql.ResultSet" obejct represents the select query results data.
+
+=> If the sql Query returns more than one rows accordingly ResultSet will be constructed. Refer ResultSet Diagram.
+=> Here within the row every column will be identified by an index number.
+=> Index number is starts from "1".
+
+public boolean next() method of a "java.sql.ResultSet" can be used to iterate the ResultSet.
+	
+	ByDefault ResultSet points to Before the first record.
+	The next() returns true if the ResultSet contains a next record and moves the cursor to that record.
+
+Methods of java.sql.ResultSet :-
+*******************************
+public int getInt(int columnIndex):- return's integer value from the specified column index. 
+public String getString(int)
+public float getFloat(int)
+public double getDouble(int)
+public long getLong(int)
+
+etc...
+
+If we use index Number we need to modify the java code when ever we shift columns within the Select Query. To avoid this we will be making use of following overloaded methods of "java.sql.ResultSet".
+
+	
+public int getInt(String ColumnName)
+
+public String getString(String ColumnName)
+
+public float getFloat(String ColumnName)
+
+public double getDouble(String ColumnName)
+
+etc ..
+
+
+Note :-
+****
+We should release all the Jdbc resurces like ResultSet , Statement ,Connection object's by calling "public void close() throws SQLExceptions".
+
+
+Drawbacks of "java.sql.Statement" :-
+********************************
+
+1. The "java.sql.Statement" object does not support positional parameters so that binding String value within the query becomes so complex.
+
+This can be achieved using "java.sql.PreparedStatement".
+
+2. Incase of "java.sql.Statement"  the Query submition , Compilation and Execution Phase will be taken place every time by the Oracle Engine.
+
+
+java.sql.PreparedStatement :-
+**************************
+The java.sql.PraparedStatement is a sub interface of "java.sql.Statement".
+
+=> The PreparedStatement supports positional parameters here parameter index starts with 1.
+
+=> Incase of "java.sql.PreparedStatement"  the Query submition  and Compilation phase takes place only once by the  Oracle Engine. Execution will be taken place every time based on user input.
+
+
+=> We can bing the values using "public void setXXX(int indexNumber,XXX)" methods
+
+=> Here XXX represents the column Type.
+
+	public void setInt( indexNo,intValue)
+	public void setString( indexNo,StringValue)
+	public void setFloat( indexNo,floatValue)  etc...
+
+
+
+SampleCode :-
+*********
+String sql = "Update Product set ProductName = ?  Where upper(ProductName) = ? ";
+
+ps.setString(1,newName);
+ps.setString(2,oldName);
+
+
+The java.sql.Connection has given following method to create the PreparedStatement object.
+
+	public PreparedStatement prepareStatement(String sql) throws SQLException.
+
+
+=> Methods of java.sql.PreparedStatement :-
+
+public int executeUpdate( ) :- for Non-Select Queries
+
+public ResultSet executeQuery( ) :- for Select Queries
+
