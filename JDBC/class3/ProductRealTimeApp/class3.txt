@@ -1,0 +1,109 @@
+Procedure to implement JDBC Application Using Eclipse :-
+*****************************************************
+
+Start the Eclipse => Specify Work Space 
+
+
+Step 1 : Create a Java Project
+
+		File => New => Others => Type Java Project Select It => Next
+
+			Project Name : JdbcDemoApplication
+
+			Next => Finish.
+
+
+step 2 : Set Ojdbc14.jar file within the build path
+
+	 Within the Project Explorer 
+
+	Right Click on "JdbcDemoApplication" project => Build Path => Configure Build Path 
+			=> The New Prompt will be open => Select Libraries Tab => Click on Add External Jars button
+			=> Select the location of ojdbc14.jar file then click on finish.
+
+
+Step 3 :- Create a Java class .
+
+	
+	Extract The "JdbcDemoApplication" Project under Project Explorer 
+
+		=> Right Click on "src" folder => New => Class
+
+		Package : com.oracle
+
+		class   : GetProductData
+
+The GetProductData.java will be created.
+
+	shortcut for main method  => main + cntl + spacebar
+
+Write the Java Code within the Main method.
+
+
+Step 4 :-
+*******
+
+	Run The Java Application.
+
+	Right Click on "GetProductData.java" file => Run As => Java Application
+
+
+**********************************************************************************************************************
+
+Industry Coding Standards :-
+**************************
+=> The DBInfomation can change frequently so that we should not hard code url,username and password within the Java File.
+   We should load the data dynamically from the properties file.
+
+=> We should hadling Exceptions.
+
+=> All the Resource Deallocation should be done within the Finally Block. Before closing resource we should check the null condition.
+
+
+Procedure to create Properties file in Eclipse 
+
+	=> Right Click Src Folder => Go to Others => Type File => File Name : dbinfo.properties => Finish
+
+
+********************************************************************************************************************
+
+** => The "java.util.ResultSet" object is not a serializable obejct so that we can not maintain ResultSet object over the network.
+
+To achieve this we need to define a JavaBean class .
+
+How many columns a select query is returning so many instance variables we will define within the Java Bean class and we will write related setters and getter methods.
+
+
+Ex :- Select ProductId , ProductName From Product ;
+
+Java Bean class :-
+******************
+
+	public class ProductBean implements Serializable 
+	{
+private Integer productId = null;
+private String productName = null;
+
+setter and getters;
+	}
+
+=> JavaBean class is a pojo class .
+=> A JavaBean class is a sub class of  java.io.Serializable interface.
+=> A JavaBean class contains instance variables and related setters and getter methods.
+	Setter methods are used to bind the data to the JavaBean object.
+	Whereas getter methods are used to access the data from the JavaBean object.
+=> All the JavaBean obejct's are serializable objects so that we can maintain over the network.
+
+
+Note :-
+*****
+=> If the query is returning more than one record then we will return List<JavaBean> object's to the front end.
+
+=>If the query is returning single  record then we will return JavaBean object to the front end.
+
+
+shortcut to generate setters and getters in Eclipse :=> Right Click in java code => Source => Generate Setters and getters => Select All => Ok.
+
+
+Developing JDBC Application using JavaBeans concept !!
+
