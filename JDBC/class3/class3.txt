@@ -1,7 +1,7 @@
 Procedure to implement JDBC Application Using Eclipse :-
 *****************************************************
 
-Start the Eclipse => Specify Work Space 
+Start the Eclipse => Specify Work Space    
 
 
 Step 1 : Create a Java Project
