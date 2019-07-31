@@ -1,0 +1,150 @@
+Drawbacks of java.sql.DriverManager :-
+***********************************
+1.How many times we will make Connection Request to the DriverManager class so many time it will interact with the Database and returns the Connection Object.
+
+2. It will keep the burden on the database.
+
+3. The Connection Objects which were returned by the DriverManager class can not be reused once again.
+
+4. Makes the JDBC Application as heavy weight application.
+
+
+All these drawbacks can be addressed using "javax.sql.DataSource" specification.
+
+
+javax.sql.DataSource   :  refer DataSource diagram
+*********************
+
+javax.sql.DataSource is an interface given by Oracle Corporations.
+
+One of the implemtation class given by Apache Foundataion for the javax.sql.DataSource is "org.apache.commons.dbcp.BasicDataSource".
+                                                                              
+The BasicDataSource does the following jobs :-
+*******************************************
+1. Before Java Application makes a connection request , interact with the Database.
+
+2. Then Creates a Connection pool. A Connection pool contains a collection of Connection object's. 
+	All these Connection object's of a Connection pool represents single database.
+
+3.Whenever a Java application makes a Connection Request then "BasicDataSource" 
+	will return Connection Object from the Connection pool. 
+
+4. Java Application uses the Connection object to interact with the database.
+
+5. Whenever the java application releases the connection object then the "BasicDataSource" 
+	takes the connection object and keep available within the Connection pool.
+
+	So that single connection object can be used more than once. Makes our application as light weight application.
+
+
+*******************************************************
+
+Procedure to work with "BasicDataSource" :-
+****************************************
+
+1. To work with BasicDataSource add the following jar files within the BuildPath.
+
+	1. commons-logging.jar
+	2. commons - pool.jar
+	3. commons - collections.jar
+	4. commons - dbcp.jar
+	5. ojdbc14.jar 
+
+2. Specify the Database information to the "BasicDataSource" by using following methods.
+
+	public void setUsername(String username) throws SQLException
+	public void setPassword(String password) throws SQLException
+	public void setDriverClassname(String className) throws SQLException
+	public void setUrl(String url) throws SQLException
+
+	public Connection getConnection() throws SQLException :- returns the connection object from the connection pool.
+
+
+
+For Usage of  BasicDataSource refer "DataSourceDemoApp" project.
+
+
+3. Here The BasicDataSource object represents the Connection pool . BasicDataSource object  is a height weight Object.
+ 
+   How many times we create BasicDataSource Object so many times the Connection pool will be created.
+
+  So that we should BasicDataSourece obejct as SingleTon Object.
+
+
+SingleTon Object :- Create the Object only once and reuse the reference more than once.
+
+Code to make BasicDataSource as singleton object.
+
+DBUtil.java
+***********
+package com.oracle.dao;
+
+import org.apache.commons.dbcp.BasicDataSource;
+
+public class DBUtil {
+	
+	private static final BasicDataSource  ds;
+	
+	static
+	{
+	synchronize(DBUtil.class)
+		{
+		System.out.println("\n\nFrom Static Block: Making BasicDataSource as singleton Object.");
+		ds = new BasicDataSource();
+		ds.setUsername("system");
+		ds.setPassword("admin");
+		ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		ds.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
+		}
+		
+	}
+	
+	public static BasicDataSource getDataSource()
+	{
+		return ds;
+	}
+	
+
+}
+
+
+
+Ex :- refer "DataSourceSingleTonApp" project.
+
+**************************************************************************************************************************
+Design Pattern's :-
+****************
+
+Design Pattern is a specification which defines set of rules and regulations. If we follow Design Pattern's for implementing the application we can increase performance of a application.
+
+1. Singleton Design Pattern :-
+   ************************
+Whenever an Object state is remains same for all the client request's why we need to create the object every time.
+ Create the Object only once and reuse the reference more than once.
+
+Ex :- We followed Singleton Design Pattern for creating BasicDataSource object.
+
+refer DBUtil.java
+
+
+2. DAO Design Pattern :-
+   ******************
+
+	1. Maintain the relational data over the network by using "Java Beans Concept". 
+	Becuase "java.sql.ResultSet" is not a Serializable object.
+
+	2. Make use of "java.sql.DataSource" object to get the connection.
+	
+	3. Make the "DataSource" object as Singleton object.
+
+	4. Write the Database interaction logics within the DAO class.
+
+		Data Access Object (DAO) class :- DAO class is a java class which contains only database interaction logic.
+
+	5. Whenever an Exception is raised in  within the Data Access Layer  we need to  handle it and 
+	forward the User Defined Exception to the Previous Layer. In order make a loose coupling between the layers.
+
+
+Develop an application using DAO Design Pattern :-
+***********************************************
+refer "DAODesignPatternApp"
