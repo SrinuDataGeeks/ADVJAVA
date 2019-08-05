@@ -1,0 +1,26 @@
+Transaction Management :-
+**********************
+=>   Transaction Management is a concept grouping all the related jobs togather and executing them as a Single Unit.
+     If all the jobs are successfull we will commit the Transaction.
+     If any one of the job is failed we will rollback the Transactoin.
+
+
+Producedure to workwith Transaction Management :-
+**********************************************
+
+=> By default the "java.sql.Connection" object autoCommit mode is true. Inoder to start the transaction we need set the 
+   "java.sql.Connection" object autoCommit mode as false.
+
+	con.setAutoCommit(false); //  1 . Starting the Transaction
+
+=> If everything went successfull we will commit() the transaction otherwise we will rollback()  the transaction.
+
+	con.commit(); // Ending the Transaction.
+
+		OR
+
+	con.rollback(); // Ending the Transaction.
+
+
+Create  AccountHolder Table :
+
