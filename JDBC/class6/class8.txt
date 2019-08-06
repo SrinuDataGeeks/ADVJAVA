@@ -1,0 +1,186 @@
+
+=> Working with PL-SQL Procedures :-
+   ******************************
+
+Procedure :-
+*********
+
+Procedure is programing language which can be implemented on the database end to implement the bussiness logics.
+
+Every Product can take inout using IN parameters and can return out put using out parameters.
+
+Create a following Procedure :-
+****************************
+
+Create Or Replace Procedure getProductName(id IN number, name out Varchar) as
+     Begin
+     Select PNAME Into name From Product Where PID = id;
+     End;
+    /
+
+
+
+Calling Procedure From JDBC Application :-
+******************************************
+
+=> JDBC has given "java.sql.CallableStatement" inorder to work with Producedures.
+
+=> Syntax to call the Procedure from JDBC :   "{ call Procedure_Name(?,?,? ...)}"
+
+	Here the positional paremeters represents the in and out parameters of a procedure.
+
+	Ex: Syntax to the call "getProductName" procedure
+
+		"{ call getProductName(?,?)}"		
+
+
+=> The "java.sql.Connection" has given folowing method to get the "java.sql.CallableStatement"
+
+public CallableStatement prepareCall(String) throws SQLException;
+
+
+
+CallableStatement clb = con.prepareCall("{ call getProductName(?,?)}");
+
+
+
+=> If the procedure contains in paremeters we need bind them by calling "setXXX(int posNo,XXX)" methods on "CallableStatement" obejct.
+
+	setXXX(int,XXX) methods of CallableStatment 
+
+		public void setInt(int,Integer)
+		public void setFloat(int,Float)
+		public void setString(int,String)
+
+etc...
+
+	Ex:  clb.setInt(1,444);
+
+
+=> Register the Out Parameters with the CallableStatment using "java.sql.Types" class.
+
+
+The "java.sql.Types" class has given public static final variables which can act as bridge between Java Types and the Database types
+
+
+	Java 			java.sql.Types			Oracle
+
+	int			INTEGER				number(10)
+	
+	float			FLOAT				number(10,2)
+
+	String			VARCHAR				varchar(10)
+
+	char			CHAR				varchar(1)
+	
+	boolean 		BOOLEAN				varchar(1) 
+
+etc...
+
+the "java.sql.CallableStatement" has given following method to register out paremeters .
+
+public void registerOutParameter(int posNo, datatype) throws SQLException
+
+	clb.registerOutParameter(2,Types.VARCHAR);
+
+=> Execute the Producedure :
+
+On the "java.sql.CallableStatement" whenever we call "public void execute()" method then the procedure will be executed.
+
+=> The CallableStatment pass the in parmaters and keeps the result return by the Procedure within the "Out-Parameters".
+
+
+=> The "CallableStatment" has given getXXX(int pono) to access the data from the out parameters.
+
+	methods :-
+	public int getInt(int posno);
+	public Float getFloat(int posno);
+	public String getString(int posno);
+
+etc..
+	
+	String name = clg.getString(2);
+
+
+*****************************************************
+
+Steps to work with Procedure :-
+
+1. Create the "java.sql.CallableStatement" obejct.
+
+2. Bind the In Parameters by calling setXXX(int,XXX) methods on  CallableStatement.
+
+3. Register Out Paramters by calling registerOutParameter(int,XXX) methods on  CallableStatement.
+
+4. Execute Procedure by calling execute() method on  CallableStatement.
+
+5. Hold the out parameter values by calling getXXX(int) methods on  CallableStatement.
+
+
+Procedure Example :-
+*****************
+
+
+Create a following Procedure in the db :-
+**************************************
+
+Create Or Replace Procedure getProductName(id IN number, name out Varchar) as
+     Begin
+     Select PNAME Into name From Product Where PID = id;
+     End;
+    /
+
+
+
+Sample Jdbc Code :-
+****************
+
+CallableStatement clb = con.prepareCall("{call getProductName(?,?)}");
+clb.setInt(1,444);
+clb.registerOutParameter(2,Types.VARCHAR);
+clb.execute();
+String name = clb.getString(2);
+
+System.out.println(name);
+
+
+refer : "ProcedureEx" 
+
+
+*****************************
+
+
+Create a following Procedure in the db :-
+**************************************
+
+
+Create Or Replace Procedure getProductData(id IN number, name out Varchar,pvalue out number) as
+     Begin
+     Select PNAME , PRICE into name , pvalue From Product Where PID = id;
+     End;
+    /
+
+
+SampleCode :-
+
+
+CallableStatement clb = con.prepareCall("{call getProductData(?,?,?)}");
+clb.setInt(1,444);
+clb.registerOutParameter(2,Types.VARCHAR);
+clb.registerOutParameter(3,Types.FLOAT);
+clb.execute();
+String name = clb.getString(2);
+Float price = clb.getFloat(3);
+
+System.out.println(name);
+System.out.println(price);
+
+refer : "ProcedureEx2"
+
+
+note :-
+*****
+
+Just like Procedures we will have functions in Oracle.
+The diff is Function will allways returns a values where as Procedure does not return value. 
+
