@@ -1,0 +1,140 @@
+checkbox =>
+
+For the checkbox we should give same name for all the components
+
+<input type="checkbox" name="qly" value="B.Tech" />  B.Tech
+<input type="checkbox" name="qly" value="M.Tech" />  M.Tech
+<input type="checkbox" name="qly" value="B.Sc" />  B.sc  <br><br>
+
+
+Radiobutto:-
+
+<input type="checkbox" name="qly" value="B.Tech" />  B.Tech
+<input type="checkbox" name="qly" value="M.Tech" />  M.Tech
+<input type="checkbox" name="qly" value="B.Sc" />  B.sc  <br><br>
+
+
+Text Area :-
+*********
+
+<textarea name="msg"  height="100" width"100" />
+
+
+Working with boostrap :-
+********************
+
+boostrap is framework which contains predefined "tags" and "css" files. We can directly use then into our html page.
+
+To work bootstrap we need add following boostrap urls into the <head> tag.
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+=> To make  our web page as responsive  with respect to mobile as well as for desktop pages .
+   bookstrap has give following tag :
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+This is also need to be included in <head> tag.
+
+***************************
+
+To work with boostrap effectitively add <html> doctype !
+
+<!DOCTYPE html>
+<html lang="en">
+
+*****************************
+
+Learning boostrap is nothing but learning css classes of boostrap 
+
+  .container class :- container class  provides a responsive fixed width container
+
+  .row  class :- it will create a row.
+
+  .col-sm-* :- It will create a column Here * represents number 
+
+
+To create a row (<div class="row">). 
+
+Then, add the desired number of columns (tags with appropriate .col-*-* classes). 
+
+Note that numbers in .col-*-* should always add up to 12 for each row.
+
+
+bostrap tables :-
+**************
+simple table 
+
+The .table class adds basic styling to a table
+
+Striped Rows
+
+The .table-striped class adds zebra-stripes to a table
+
+
+Bordered Table
+
+The .table-bordered class adds borders on all sides of the table and cells:
+
+Hover Rows
+
+The .table-hover class adds a hover effect (grey background color) on table rows:
+
+*************************
+The contextual classes that can be used are:
+
+Class		Description
+.active		Applies the hover color to the table row or table cell
+.success	Indicates a successful or positive action
+.info		Indicates a neutral informative change or action
+.warning	Indicates a warning that might need attention
+.danger		Indicates a dangerous or potentially negative action
+
+
+
+***************
+Responsive Tables
+
+.table-responsive class creates a responsive table. The table will then scroll horizontally on small 
+*****************  devices (under  768px). When viewing on anything larger than 768px wide, there is no difference:
+
+Bootstrap Images :
+****************
+
+Rounded Corners
+
+The .img-rounded class adds rounded corners to an image (IE8 does not support rounded corners):
+
+Example
+<img src="cinqueterre.jpg" class="img-rounded" alt="Cinque Terre" width="304" height="236">
+
+Circle
+
+The .img-circle class shapes the image to a circle (IE8 does not support rounded corners):
+
+Example
+<img src="cinqueterre.jpg" class="img-circle" alt="Cinque Terre" width="304" height="236">
+Try it Yourself »
+
+
+Thumbnail
+
+The .img-thumbnail class shapes the image to a thumbnail:
+
+Example
+<img src="cinqueterre.jpg" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+Try it Yourself »
+
+
+
+
+
+
+

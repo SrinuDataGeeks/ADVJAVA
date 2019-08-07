@@ -1,0 +1,62 @@
+<div> tag :-
+*****
+	<div> tag represents specified area with in the Html page.
+
+
+while developing css files we will define the properties within the "css class" rather than using html tags.
+
+Adv :-
+****
+	For the same html tag we can apply different styles by using css classes.
+
+	Ex:-  refer "divcssapp"
+
+********************
+
+Creating tables :-
+****************
+
+	An HTML table is defined with the <table> tag.
+
+Each table row is defined with the <tr> tag.
+A table header is defined with the <th> tag. 
+By default, table headings are bold and centered. 
+A table data/cell is defined with the <td> tag.
+
+refer tablecssapp, tablecssapp2
+
+=> Developing Form pages :-
+   *********************
+The <form> Element
+
+The HTML <form> element defines a form that is used to collect user input:
+
+The <input> Element
+*********************
+
+The <input> element can be displayed in several ways, depending on the type attribute.
+
+Here are some examples:
+
+Type				Description
+
+<input type="text">	Defines a one-line text input field
+<input type="password">	Defines a one-line password input field
+<input type="radio">	Defines a radio button (for selecting one of many choices)
+<input type="submit">	Defines a submit button (for submitting the form)
+	
+
+
+The <select> Element
+********************
+
+<select name="cars">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="fiat">Fiat</option>
+  <option value="audi">Audi</option>
+</select>
+The <select> element defines a drop-down list:
+
+
+

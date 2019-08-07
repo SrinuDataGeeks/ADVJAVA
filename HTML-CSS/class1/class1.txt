@@ -1,0 +1,101 @@
+
+=> Static Web Pages :- The content which is presented in the web page can remains same for all the client request.
+	Ex : online tutorials etc
+
+=> Dynamic Web Pages :- The content which is presented in the web page can change based on the client request.
+	Ex : bank applications,facebook  etc
+
+
+=> Hyper Text Markup Lanaguage (HTML) can be used to develop static Web Pages.
+
+=> The HTML can dyrectly run on browser.
+
+Structure of of HTML Page :-
+*************************
+
+	<html>  Root Tag
+
+	<head>
+	
+	** we can specify title for the web page	
+	** we can write styles here 
+	** Here we can import css files
+	** we can implement java script		
+
+	</head>
+
+	<body>
+
+	** What we want to present on the web page can be implemented in <body> tag.
+	
+
+	</body>
+
+
+	</html>
+
+
+=> The html page extentation should be either ".html" or ".htm" .
+
+
+welcome.html :-
+************
+
+<html>
+
+<head>
+<title > Home Page </title>
+</head>
+
+<body>
+
+	<center>
+
+<h1 style="color:blue">
+Welcome to HTML.
+</h1>
+
+<h2 style="color:red"> 
+This is HTML Training
+ </h2>
+
+	</center>
+
+</body>
+
+
+</html>
+
+
+Using "style" attribute we can apply color to the content which is presented within the tag.
+
+*********************************
+
+Making an interaction between the pages :-
+****************************************
+
+We can use <a href="path" > tag to make interaction between the pages.
+
+
+refer "InteractionApp"
+
+
+<style> tag :-
+***********
+<style> tag can be used to write the styles for the page at one level.
+
+<style> tag shoule be written under <head> tag.
+
+refer "style.html".
+
+**********************
+
+
+If we write styles within the <style> tag we can not use it in other web pages so that we will implements all the styles within the "css" file. 
+
+We will import the css file using "<link>" tag.
+
+the "<link>" tag should be written under <head> tag.
+
+
+refer "cssapp".
