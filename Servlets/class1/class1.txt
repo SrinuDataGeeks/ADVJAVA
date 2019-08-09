@@ -327,10 +327,10 @@ We need set "servlet-api.jar" file within the class path to compile the servlet 
 	
 
 
-Step 4 :- Download Tomcat9 and install chages the port number as 8999.
+Step 4 :- Download Tomcat9 and install chages the port number in Tomcat XX.0/conf/server.xml as 8999.
 ******		
 	
-	Create the Directory Structure and deploy the application within the "Tomcat Server"
+	Create the Directory Structure and deploy the application within the "Tomcat Server"  ( "webapps" folder )
 
 
 ---DemoApp
