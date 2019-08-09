@@ -1,0 +1,13 @@
+<web-app>
+
+<servlet>
+<servlet-name> one </servlet-name>
+<servlet-class> com.google.servlet.DemoServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name> one </servlet-name>
+<url-pattern> /demo  </url-pattern>
+</servlet-mapping>
+
+</web-app>

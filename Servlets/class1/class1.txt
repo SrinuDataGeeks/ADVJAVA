@@ -1,0 +1,376 @@
+There are two types of applications.
+
+	1. Stand Alone Application :- An Application which can be invoked from the Same Machine can be called as Stand Alone Application.
+
+	Ex :- VLC media player  etc..
+
+	The data which is presented in Stand Alone Application can not be sharable.
+
+	2. Web Application :- An application which can accessble over the network can be called as Web Application.
+
+		Facebook , Twitter , Google+ etc...
+
+	The data which is presented in Web application can be sharable.
+
+	3. Enterprice Application :- An Enterprice Application is a bussiness application which contains complex and heavy weight bussiness logics.		
+
+			Ex : Flipkart , Amezon , Bank Application's, Insurance Application's.
+
+	All the Enterprice Application's are web application's. 
+
+
+For Developing Statnd Alone applications we can use JSE.(Core Java)
+
+For Developing Enterprice Application we can use JEE. (Servlet's,Jsp's , EJB  && JPA)
+
+
+Webserver :-
+*********
+
+=> A WebServer is an application which can be used to serve the user request through the network.
+=> We generally host the web application within the WebServer.
+=> Whenever a user makes a request to the webapplication then Webserver traps the request.
+=> A Webserver creates a unique thread for every request.
+=> Webserver returns the  response which is given by the webapplication to the browser.
+
+Ex : Tomcat , Glash fish etc..
+
+
+refer "WebServer diagram".
+
+
+			Servlet :-
+			*******
+=> Servlet is a technology which is can give dynamic response based on the user request.
+=> Servlet is a Specification given by Oracle Corporations.
+=> Servlet specification can be used to develop Servlet Containers.
+=> The Servlet Containers can be available to us in the form WebServers.
+=> The Servlet Container can maintain the life of a Servlet Programe.
+=> Maintaining life cycle Servlet Programe can includes :-
+	
+	1. Creating the Servlet Object .
+	2. Calling the methods of Servlet.
+	3. Removing the Servlet Object.
+
+
+
+javax.servlet.Servlet :-
+*********************
+=> Servlet  Specification is given by Oracle  in the form "javax.servlet.Servlet" interface.
+=> If any java class want to act as Servlet class then that should implements ""javax.servlet.Servlet" interface.
+
+
+javax.servlet.Servlet methods :-
+******************************
+	
+  1. public abstract void init(ServletConfig) throws ServletException 	
+	
+  2. public abstract ServletConfig getServletConfig();
+
+  3. public abstract void service(ServletRequest, ServletResponse) throws ServletException, IOException;
+
+  4. public abstract java.lang.String getServletInfo();
+
+  5. public abstract void destroy();
+
+If our java class implements the "javax.servlet.Servlet" interface then it should provide definition for all the above methods.
+
+
+
+Servlet Container maintains the life cycle of a Servlet Programe.
+Servlet Container creates the Servlet object only once. By default all the Servlet Object's are singleton object's.
+
+1.public abstract void init(ServletConfig) throws ServletException  :-
+  ***************************************
+The init(ServletConfig) method will be called by the Servlet Container only once after creting the Servlet Object.
+So the logic we implemented within the init(..) executed only once through out the life cycle of a Servlet Programe.
+
+Within the init(..) we will implement initialization logic .
+
+Ex:- creating IO stream object's etc..
+
+
+javax.servlet.ServletConfig :-
+****************************
+=> For every Servlet , "Servlet Container" creates a one "ServletConfig" object.
+=> The "ServletConfig" object contains the Servlet configuration information. 
+
+Servlet Container calls init(..) method by passing "ServletConfig" object.
+
+
+2. public abstract ServletConfig getServletConfig()
+   **********************************************
+=> getServletConfig() method is not a life cycle method. Which means the getServletConfig() method is not called by the Servlet Container.
+
+=> getServletConfig() method can be used by the java programmer to get the "ServletConfig" object.
+
+
+3.public abstract void service(ServletRequest, ServletResponse) throws ServletException, IOException
+  *************************************************************
+	
+The "service(ServletRequest, ServletResponse)" method will be called by Servlet Container for every user request by passing ServletRequest, ServletResponse objects.
+
+
+javax.servlet.ServletRequest :-
+****************************
+=> The Servlet Container creates the ServletRequest object for every user request.
+=> The Servlet Container keeps the user submited information within the "javax.servlet.ServletRequest" object.
+
+
+javax.servlet.ServletResponse :-
+*****************************
+=> The Servlet Container creates the ServletResponse object for every user request.
+=> The Servlet Container keeps the browser information within the "javax.servlet.ServletResponse" object.
+=> The ServletResponse includes content-type,browser ip etc..
+
+
+** Within the service(ServletRequest, ServletResponse) method we will implement request processing logic.
+ 
+
+
+4. public abstract java.lang.String getServletInfo() :-
+  *****************************************************
+
+=> getServletInfo() method is not a life cycle method. Which means the getServletInfo() method is not called by the Servlet Container.
+	
+=> A java programmer provides the information about servlet programe using getServletInfo() method so that other programmers can get to know about it.
+
+
+5. public abstract void destroy() :-
+   ******************************
+=> destroy() method will be called by the ServletContainer before removing the Sevlet Object.
+
+=> Through out the Life Cycle of a Servlet Programe the destroy method will be invoked by the Servlet Programe only once.
+
+** We write the resource deallocation logic within the destroy method.
+
+	Ex :- closing IO Streams  etc..
+
+
+public class DemoServlet implements Servlet
+
+	{
+private ServletConfig  config = null;
+
+public void init(ServletConfig config) throws ServletException 
+{
+	** ServletContainer calls this method only once after creating Servlet Object.
+	** We will implement Resource allocation logic.
+	
+	this.config = config;
+}
+
+
+public ServletConfig getServletConfig()
+{
+	** This is not a life cycle method.
+
+return config;
+}
+
+
+public void service(ServletRequest, ServletResponse) throws ServletException, IOException
+{
+
+	** ServletContainer calls this method for every user request.
+	** We will implement Request Processing Logic.
+
+}
+
+public String getServletInfo()
+{
+
+	** This is not a life cycle method.
+
+	String info =" This is a Demo Servlet ".
+
+	return info;
+}
+
+public void destroy()
+	{
+** ServletContainer calls this method  only once before removing Servlet Object.
+** Here we will implement resource deallocation logic.
+
+	}
+
+	}
+
+
+
+=> The Servlet api is avaialable to us in the form of "servlet-api.jar" file.
+=> To work servlets we need to "servlet-api.jar" file either in a class path.
+
+javax.servlet.Servlet
+
+javax.servlet.ServletConfig
+
+javax.servlet.ServletRequest
+
+javax.servlet.ServletResponse
+
+All these are interfaces .
+
+***************************************************************************
+
+ Procedure to implement Servlet Application :-
+  
+
+1. Develop a Servlet Programe by implementing "javax.servlet.Servlet" interface.
+
+2. Configure the Servlet Programe within the web.xml file.
+
+	ServletContainer reads the web.xml file then maintains the life cycle of a Servlet Programe.
+
+3. Compile  the java files . We need set "servlet-api.jar" file within the class path to compile the servlet programe.
+
+4. Create the Directory Structure and deploy the application within the "Tomcat Server".
+
+5. Start the Server.
+
+6. From the html page make a request to the Servlet Programe.
+
+
+
+Develop DempApp by following above steps :-
+*****************************************
+
+Step1 :- 
+*****
+Develop a Servlet Programe by implementing "javax.servlet.Servlet" interface.
+
+refer DemoServlet.java
+
+Step2 :-
+*****
+Configure the Servlet Programe within the web.xml file.
+
+
+web.xml can also be called as deployment descriptor. Which gives the information about the Servlet programe.
+
+ServletContainer can understand the meta information about the Servlet programe by reading the "web.xml" file.
+
+web.xml
+******
+
+<web-app>
+
+<servlet>
+<servlet-name>one</servlet-name>
+<servlet-class>com.oracle.DemoServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name>one</servlet-name>
+<url-pattern> /demo </url-pattern>
+</servlet-mapping>
+
+</web-app>
+
+Here <web-app> is a root tag.
+
+	We can register the Servlet programe using "<servlet>" tag. 
+
+	Every Servlet programe can be uniquly identified by one logical name . We can specify logical name to the Servlet programe using "<servlet-name>" tag.
+
+	Servlet class can be configured within the web.xml file using "<servlet-class>" tag.
+
+
+	** From the Browser we will make a request to the "Servlet programe" using url-pattern.
+
+	** We can map the Servlet with url-pattern using  "<servlet-mapping>" tag.
+
+	** <url-pattern> tag can be used to specify the URL-Pattern to the servlet. 
+
+
+Note :-
+****
+	Whenever the browser makes a request to the Servlet Programe using url-pattern .
+
+	1. Request will be trapped by the WebServer.
+	2. Invokes the ServletContainer by passing url-pattern.
+	3. ServletContainer verifies the url-pattern within the web.xml file.
+	4. If url-pattern is found idendtifies the related "Servlet-class" .
+
+	5. Then for the first request Servlet Container loads the related Servlet-class into the RAM and creates the Servlet object.
+	6. then Calls the init(ServletConfig) method.
+
+	7. then Calls the  service(ServletRequest,ServletResponse) method.	
+
+
+	From 2nd request ServletContainer invokes only service(ServletRequest,ServletResponse) method.
+
+
+Step 3 :-
+******
+Compile  the java files . 
+We need set "servlet-api.jar" file within the class path to compile the servlet programe.
+
+	Develop index.html and make a request to servlet program using <a> tag.
+
+	index.html
+	**********
+<html>
+
+<body>
+
+<center>
+
+<h1>	<a href="./demo"> Click Here </a> <h1>
+
+</center>
+
+</body>
+
+</html>
+
+	
+
+
+Step 4 :- Download Tomcat9 and install chages the port number as 8999.
+******		
+	
+	Create the Directory Structure and deploy the application within the "Tomcat Server"
+
+
+---DemoApp
+   ¦   index.html
+   ¦
+   +---WEB-INF
+       ¦   web.xml
+       ¦
+       +---classes
+       ¦   +---com
+       ¦       +---oracle
+       ¦               DemoServlet.class
+       ¦
+       +---lib
+       +---src
+               DemoServlet.java
+
+
+refer directory structure diagram 
+
+
+Deploying application within the TomcatServer :-
+
+
+	goto => Tomcat XX.0\webapps folder => Copy the DemoApp into this folder.
+
+
+Step 5 : - Start the Server
+
+goto => Tomcat XX.0\bin
+
+	click on Tomcatxx application.
+
+		OR
+
+	Click on  startup
+
+Step6 :- Open Browser : Make a request to the HOME html page.
+
+	http://localhost:8999/DemoApp/index.html
+
+
+
