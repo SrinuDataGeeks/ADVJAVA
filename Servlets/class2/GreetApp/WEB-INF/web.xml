@@ -1,0 +1,13 @@
+<web-app>
+
+<servlet>
+<servlet-name> one </servlet-name>
+<servlet-class> com.google.servlet.GreetsServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name> one </servlet-name>
+<url-pattern> /result </url-pattern>
+</servlet-mapping>
+
+</web-app>

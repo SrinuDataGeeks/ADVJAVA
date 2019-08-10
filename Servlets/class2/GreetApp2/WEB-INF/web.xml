@@ -1,0 +1,33 @@
+<web-app>
+
+<servlet>
+<servlet-name> one </servlet-name>
+<servlet-class> com.google.servlet.GreetServlet</servlet-class>
+</servlet>
+
+<servlet>
+<servlet-name> two </servlet-name>
+<servlet-class> com.google.servlet.WishServlet</servlet-class>
+</servlet>
+
+<servlet>
+<servlet-name> three </servlet-name>
+<servlet-class> com.google.servlet.MessageServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+<servlet-name> one </servlet-name>
+<url-pattern> /greet </url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+<servlet-name> two </servlet-name>
+<url-pattern> /wish </url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+<servlet-name> three </servlet-name>
+<url-pattern> /msg </url-pattern>
+</servlet-mapping>
+
+</web-app>

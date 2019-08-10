@@ -1,0 +1,86 @@
+response.setContentType(String) :-
+*******************************
+response.setContentType("text/html") :- Which indicates what type response the servlet programe will return to the browser so that brower will prepare accordingly.
+
+response.setContentType("application/json") 
+
+response.setContentType("text/xml") 
+
+
+java.io.PrintWriter :-
+********************
+
+PrintWriter out = response.getWriter() :- Which creates a stream brower and to the servlet programe.
+
+So that we can send content to the browser from the servlet programe.
+
+
+
+
+
+javax.servlet.GenericServlet :-
+****************************
+
+=> GenericServlet is an abstract class which implements "javax.servlet.Servlet" interface.
+
+=> GenericServlet provides definition for all the abstract methods of a  "javax.servlet.Servlet" interface except "service(ServletRequest,ServletResponse)" method.
+
+=> If our java extends GenericServlet then it needs to provide defination for "service(ServletRequest,ServletResponse)" method.
+
+refer GenericServletDiagram
+
+Query Params :-
+************
+From the hyperlink if we would like give any information to the Servlet , then we make use of  Query Params.
+
+A Query Param represents key and value pair.
+
+A Query param can be differentiated from the url-pattern using "?" symbol.
+
+Ex:-
+	
+<a href="./result?method=msg"> Get Msg </a> <br><br>
+<a href="./result?method=greet"> Get Greet </a> <br><br>
+<a href="./result?method=wish"> Get Wish </a> <br><br>
+
+
+If there are more than one query param within the "url-pattern" which can be differentiated using "&&" symbol.
+
+
+./result?method=msg&&lang="en"
+
+./result?method=msg&&lang="fr"
+
+
+=> Servlet Container keeps the query params information within the "ServletRequest" object .
+
+=> java.servlet.ServletRequest object has given "public String getParameter(String paramName)" method to get the param value.
+
+
+GreetApp :-
+*******
+
+
+Directory Structure :-
+
+GreetApp
+ ¦   index.html
+ ¦
+ +---WEB-INF
+     ¦   web.xml
+     ¦
+     +---classes
+     ¦   +---com
+     ¦       +---oracle
+     ¦               GreetsServlet.class
+     ¦
+     +---lib
+     +---src
+             GreetsServlet.java
+
+refer "WishAppDiagram".
+
+Request  URL :-
+************
+
+	http://localhost:8999/GreetApp/index.html
