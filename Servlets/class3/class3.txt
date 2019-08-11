@@ -1,0 +1,57 @@
+Create a following Product table :-
+
+SQL> DESC Product
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+
+ PID                                       NOT NULL  NUMBER(10)
+ PNAME                                                     VARCHAR2(15)
+ PRICE                                                        NUMBER(10,2)
+  
+
+Developing a web application to access ProductInforamtion based on ID :
+
+
+Directory Structure :-
+
+ProductApp
+¦   product.html
+¦
++---WEB-INF
+    ¦   web.xml
+    ¦
+    +---classes
+    ¦   +---com
+    ¦       +---google
+    ¦           +---dao
+    ¦           ¦   ¦   ProductDAO.class
+    ¦           ¦   ¦
+    ¦           ¦   +---bean
+    ¦           ¦   ¦       ProductBean.class
+    ¦           ¦   ¦
+    ¦           ¦   +---exp
+    ¦           ¦           DataSourceException.class
+    ¦           ¦
+    ¦           +---service
+    ¦           ¦   ¦   ProductService.class
+    ¦           ¦   ¦
+    ¦           ¦   +---exp
+    ¦           ¦           ServicesException.class
+    ¦           ¦
+    ¦           +---servlet
+    ¦                   ProductServlet.class
+    ¦
+    +---lib
+    ¦       ojdbc14.jar
+    ¦
+    +---src
+            DataSourceException.java
+            ProductBean.java
+            ProductDAO.java
+            ProductService.java
+            ProductServlet.java
+            ServicesException.java
+
+URL : - 
+*******
+http://localhost:8999/ProductApp/product.html
