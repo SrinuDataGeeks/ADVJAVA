@@ -1,0 +1,14 @@
+<web-app>
+
+
+	<servlet>
+	<servlet-name> one </servlet-name>
+	<servlet-class> com.google.servlet.DeleteProductServlet </servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+	<servlet-name> one </servlet-name>
+	<url-pattern> /delete </url-pattern>
+	</servlet-mapping>
+
+</web-app>
