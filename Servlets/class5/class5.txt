@@ -1,0 +1,76 @@
+Procedure to Develop Web Application in Eclipse :-
+
+Step 1 :- Configure the tomcat server.
+
+	Goto Window => Preferences => Type "Server" => Click on Runtime Enviroments 
+		    => Add => Select Apache Tomcat 9.0 => Next => Select "apache-tomcat-9.0.0.M17" directory
+		    => Finish => OK.
+
+Step 2 => In eclipse set the default browser as Chrome :
+
+		Goto Window => Web Browser => Select Chrome.
+
+Set up the Server in console window :
+
+		window => show view => servers => new server window opens at console window.
+		
+		click on create server hyperlink => click on finish.
+	
+		on server window double click on tomcat9.0 server =>
+
+		Select "use tomcat installation path radio button".
+		
+			in the buttom edit deploy path to  => "webapps"
+
+		On the right top "timeout => edit start to "450"
+			
+
+Step 3 => Create a Dynamic Web Project 
+
+		File => New => Dynamic Web Project 
+
+		      Project Name : GetProductApp
+
+		     Under Target Runtime dropdown => Select Apache Tomcat 9.0
+	
+	
+		   => Next => Next => Check the "Generate web.xml" check box 
+		   => Click  on Finish.
+
+
+Now GetProductApp will be created.
+
+	
+
+Step 4 => Copy all JDBC jar files into 
+		GetProductApp => Web Contenct => WEB-INF => lib folder.
+
+		commons-collections.jar
+		commons-dbcp.jar
+		commons-logging.jar
+		commons-pool.jar
+		ojdbc14.jar
+
+
+Step 5=> Create all the Java file into "src" Folder
+
+     
+Step 6 => Configure Servlet in GetProductApp => Web Contenct => WEB-INF => web.xml file.
+
+
+step 7 => Create getproduct.html file in  Web Contenct folder.
+
+		Right click  on GetProductApp => Web Contenct folder.
+
+
+
+
+
+Step 8 => Run the Application.
+
+	=> Right Click on GetProductApp => Run As => Run On Server => Next => Finish
+
+
+
+
+
