@@ -1,0 +1,115 @@
+javax.servlet.http.HttpServlet :-
+*****************************
+
+=> HttpServlet is a sub class of GenericServlet.
+
+=> The HttpServlet is an abstract class but which does not contain any abstract methods.
+
+=> The HttpServlet has given http specific methods.
+
+	such as 
+
+
+ protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException , IOException
+	
+ This is invokes for "get" Request.
+
+ protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException , IOException
+
+ This is invokes for "post" Request.
+
+
+
+ protected void doPut(HttpServletRequest request,HttpServletResponse response) throws ServletException , IOException
+
+ This is invokes for "put" Request.
+
+
+ protected void doDelete(HttpServletRequest request,HttpServletResponse response) throws ServletException , IOException
+	This is invokes for "delete" Request.
+
+
+
+  protected void service(ServletRequest, ServletResponse) throws javax.servlet.ServletException, java.io.IOExcepti
+on;
+
+
+  protected void service(HttpServletRequest, HttpServletResponse) throws javax.servlet.ServletException, java.io.IOExcepti
+on;
+
+
+etc ...
+
+
+Understanding the workflow of HttpServlet :-
+
+	refer HttpServletDiagram.
+
+javax.servlet.RequestDispatcher :-
+*****************
+=> The RequestDispatcher can be used to make a communication with other resources.
+
+methods :-
+
+public void forward(ServletRequest,ServlerResponse) :- 
+
+This method can be used to forward the request to another resource.
+The resource can be a "servlet or jsp or html".
+
+note :-
+*****
+
+1. If we forward(ServletRequest,ServlerResponse) the request from the servlet1 to servlet2  then the servlet1 and the 		   servlet2 will use same request and response objects.
+
+2. The forward(ServletRequest,ServlerResponse) request can used to access within the  server application resources.
+   we can not access outside the server application resources.
+
+
+
+public void include(ServletRequest,ServlerResponse) :- 
+
+This method can be used to include the response of another resource.
+The resource can be a "servlet or jsp or html".
+
+
+
+Ex1:-
+***
+
+RequestDispatcher rd = request.getRequestDispatcher("/login.html");
+rd.include(request,response);
+s
+
+Ex2:-
+***
+RequestDispatcher rd = request.getRequestDispatcher("/welcome");   
+rd.forward(request,response);
+
+Here "/welcome" is the url-pattern for the WelcomeServlet.
+
+response.sendRedirect(String path) :- 
+**********************************
+This is also can be used to forward the request to another resource (servlet or jsp or html or other website).
+
+** The sendRedirect(String) can be used to access the applications within the server and also outside the server.
+
+** If we forward the request using sendRedirect(String) then source and the destination servlets will use different request and response object's.
+
+** If we use sendRedirect(String) , we must give the absolute path.
+
+
+RequestDispatcher rd = request.getRequestDispatcher("/index.html"); This is relative path
+
+response.sendRedirect("http://localhost:9080/LoginApp/index.html"); this absolute path
+
+	OR
+
+response.sendRedirect("./index.html"); this absolute path
+
+	OR
+
+response.sendRedirect("www.google.co.in"); 
+
+
+
+
