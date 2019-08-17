@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <servlet>
+  <servlet-name>one</servlet-name>
+  <servlet-class>com.google.servlet.RegisterServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>one</servlet-name>
+  <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+  <servlet-name>two</servlet-name>
+  <servlet-class>com.google.servlet.QualificationServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>two</servlet-name>
+  <url-pattern>/qualification</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>three</servlet-name>
+  <servlet-class>com.google.servlet.ExperienceServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>three</servlet-name>
+  <url-pattern>/experience</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>four</servlet-name>
+  <servlet-class>com.google.servlet.ResultServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>four</servlet-name>
+  <url-pattern>/result</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>

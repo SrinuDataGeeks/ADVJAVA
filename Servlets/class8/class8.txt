@@ -1,0 +1,184 @@
+
+
+Session Scope :-
+*************
+Session is a time interval between login and logout. 
+
+	OR
+
+Session is a time interval between opening and closing the browser.
+ 
+=> In servlets the session can be represented javax.servlet.ServletConfig :-
+***************************
+
+=> ServletConfig object contains servlet configuration information .
+
+=> For every servlet  "ServletContainer" will creates a ServletConfig onject.
+
+=> ServletContainer pass the "ServletConfig"  by calling "init(ServletConfig)" method.
+
+=> We can access the "ServletConfig" object within our application by calling "public ServletConfig getServletConfig()" method.
+
+=> 
+We can configure the servlet configuration information within the web.xml file using "<init-param>" tag.
+
+The "<init-param>" tag is a sub tag of "<servlet>" tag.
+
+web.xml
+******
+
+<web-app>
+
+<servlet>
+
+<servlet-name> one </servlet-name>
+<servlet-class> com.oracle.DemoServlet </servlet-class>
+
+<init-param>
+<param-name> cfgfilelocation </param-name>
+<param-value> /WEB-INF/dbinfo.properties </param-value>
+</init-param>
+
+<init-param>
+<param-name> serverpath </param-name>
+<param-value> http://www.google.com </param-value>
+</init-param>
+
+....
+....
+
+</servlet>
+
+<servlet-mapping>
+<servlet-name> one </servlet-name>
+<url-pattern> /demo </url-pattern>
+</servlet-mapping>
+
+</web-app>
+
+
+
+
+The "javax.servlet.ServletConfig" has given following methods to get the configuration information.
+
+public String getInitParameter(String paramname) :- returns param values.
+
+public Enumeration<String> getInitParameterNames() :- returns all the param names in the form of java.util.Enumeration obeject.
+
+refer ServletConfigApp
+
+
+javax.servlet.ServletContext :-
+*****************************
+
+=> ServletContext also can be used to configure the configuration information.
+
+=> ServletContainer creates only one "javax.servlet.ServletContext" object through out the application.
+
+=> We can specify configuration info to the ServletContext object using "<context-param>" tag.
+
+=> The <context-param> tags should be written after closing the <servlet-mapping> tag.
+
+=> The "ServletContext" object information can be shared by all the "Servlet" objects.
+
+<web-app>
+
+<servlet>
+....
+....
+</servlet>
+
+<servlet-mapping>
+....
+...
+</servlet-mapping>
+
+<context-param>
+<param-name> cfgfilelocation </param-name>
+<param-value> /WEB-INF/dbinfo.properties </param-value>
+</context-param>
+
+<context-param>
+<param-name> serverpath </param-name>
+<param-value> http://www.google.com </param-value>
+</context-param>
+
+
+</web-app>
+
+
+=> The "javax.servlet.ServletContext" object can return two ways.
+
+1. GenericServlet has given "public ServletContext getServletContext()" method.
+
+	ServletContext context = getServletContext();
+
+2. ServletConfig has given "public ServletContext getServletContext()" method.
+
+	ServletContext context = getServletConfig().getServletContext();
+	
+refer ServletContextApp 
+**********************************************************************************************************************
+
+Undestanding the scopes  :-
+***********************
+
+We have 3 types of scopes in Servlet's.
+
+Scope can be used to access the between multiple servlet's.
+
+
+	=> Request Scope.
+
+	=> Session Scope.
+
+	=> Application or Context Scope.
+
+Request Scope :-
+*************
+=> The Request Scope can be represented by "javax.servlet.http.HttpServletRequest" object.
+
+=> Whatever data we bind within the "HttpServletRequest" object can be accessible in Same request.
+
+=> Because for every request ServletContainer will create seperate "HttpServletRequest"  object.
+
+
+public void setAttribute(String name , Object value) :- This is used to set the data into scope.
+
+public Object getAttribute(String name ) :- This is used to get the data from scope.
+
+refer : RequestScopeApp 
+
+
+
+
+by "HttpSession"  object.
+
+=> ServletContainer will create a seperate "HttpSession" object for every browser.
+
+=> Whatever data we bind within the "javax.servlet.http.HttpSession" object  can be accessible  within the session.
+
+=> "HttpServletRequest" has given "public HttpSession getSession()" method.
+
+	Whenever we call getSession() method on "HttpServletRequest"  object then ServletContainer returns the current Session object.
+
+
+HttpSession session = request.getSession();
+
+
+** Whenever we close the then ServletContainer  invalidates the "HttpSession" object.
+
+refer "JobPortalApp" 
+
+Application Scope :-
+*****************
+=> Servletcontainer creates  only one "javax.servlet.ServletContext"  object for an application.
+
+=> If we bind the data within the "ServletContext" object then it will available through out the application.
+
+=> Even we close the browser the data can be accessible from the "ServletContext"  object.
+
+=> Whenever we stop the Server then ServletContainer removes the "ServletContext" object.
+
+refer the "JobPortalContextApp" 
+

@@ -17,8 +17,12 @@ public class ValidationServlet extends HttpServlet {
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
 			
-			if(request.getParameter("age"))
-			Integer age = Integer.valueOf();
+			String value = request.getParameter("age");
+			Integer age = null;
+			
+			if(value != null && value.trim().length() > 0 )
+			         age = Integer.valueOf(value);
+			
 			String name = request.getParameter("name");
 			
 			if( age == null || name == null || name.trim().length() == 0)
