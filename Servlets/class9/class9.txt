@@ -1,0 +1,135 @@
+Understanding Session Management or Session Tracking :-
+****************************************************
+
+=> Http Protocal is a stateless protocal it does not maintain client data on the server end.
+
+=> Http Protocal treats every request as new request.
+
+=> So that we should maintain user data within the session along with multiple user requests.
+
+=> Session Management is concept of maintaining the user information within a period of time along with the multiple requests .
+
+=> Using Session Management we can make our application as Statefull application.
+
+
+Session Management can be does in four ways :-
+
+
+1. Cookies 
+
+2. Hidden Form Fields
+
+3. Url Rewritting
+
+4. HttpSession  object.
+
+
+Understanding Cookie  :-
+*********************
+=> javax.servlet.http.Cookie is a name && value pair.
+
+=> The Cookie's will allways be maintained on browser cache.
+
+=> Cookie's can be used to carry the data along with multiple user requests.
+
+=> Allways Cookie's will be appended with the request object.
+
+
+Constructor :-
+**********
+
+public Cookie(String name , String value)
+
+=> There are two types of cookies.
+
+	1. Persistence Cookies
+
+	2. Inmemory Cookies 
+
+Persistence Cookies :-
+*******************
+Here the Cookies  information can be maintained with in the browser cache till some period of time.
+So that ever we close the browser the Cookie data can be available.
+
+Ex :- facebook.com , gmail.com  etc..
+
+The javax.servlet.http.Cookie has given "public void setMaxAge(int sec) " method to set age for the Cookie.
+
+
+Cookie loginCookie = new Cookie("Np.Srinu@fb.com","SrinuTest123");
+loginCookie.setMaxAge(60*60);
+
+Here the loginCookie will be maintained on the browser till one hour.
+
+
+Inmemory Cookies :-
+****************
+=> The Inmemory Cookies does not have age.
+
+=> Inmemory cookies will be destroyed once we close the browser.
+
+Cookie loginCookie = new Cookie("Np.Srinu@fb.com","SrinuTest123"); 
+
+
+
+How Cookie's Works :-
+*******************
+refer CookieConcept.
+
+
+javax.servlet.http.Cookie  methods :-
+***********************************
+
+public String getName() :- returns name.
+public String getValue() :- returns Value.
+public void setName(String name) :- We can update the Cookie name.
+public void setValue(String Value) :- We can update the Cookie value.
+public void setMaxAge(int sec)
+
+=> javax.servlet.http.HttpServletResponse  has given "public void addCookie(Cookie)" method to add cookie to the response object.
+
+
+=> javax.servlet.http.HttpServletRequest has given "public Cookie[] getCookies()"  method.
+
+	which will return all the appended cookies with the request object.
+
+Drawbacks of Cookies :-
+********************
+=> It will maintain in browser cache so that can get secuirity issues.
+=> If we disable the cookies on the browser it won't work.
+
+
+2.  HiddenForm Fields :-
+    *****************
+=> An hidden field can be configured using  input type as 'hidden'.
+
+<input type="hidden" name="username" value="Mahesh" />
+
+=> The Hidden Field con't be visible in UI.
+
+=> All the Hidden Fields will maintain on Server Side.
+
+=> For an Hidden Field Extra Form submition is needed.
+
+refer HiddenFormFieldApp
+
+
+3. Url Rewritting :-
+   **************
+In a url Rewriting we will forward the data to the servlet using Query String's.
+
+
+Ex :- http://localhost:9080/UrlRewritingApp/show?username=Ganesh
+
+=> It does not need extra form submition.
+=> We can not send huge amount of data through URL Rewriting
+
+
+
+
+
+
+
+
+
+
