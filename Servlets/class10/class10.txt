@@ -1,0 +1,53 @@
+4. Session Management :-
+   ******************
+
+
+=> In a Session Management we will bind the data within HttpSession object. (i.e Session Scope).
+
+refer : SessionManagementApp 
+
+=> How ServletContainer can maintains the Session Objects ?
+
+	ServletContainer internally maintains a JSession table on the server.
+
+	Here ever Session object can uniquely identified by on JsessionId.
+
+=> When the user makes a request for the first time then ServletContainer creates a "HttpSession" object.
+
+=> Keeps the Session object within the JSessionTable and also refer the object with one unique jsessionid.
+
+=> Whenever Servlet is giving response to the user then ServletContainer appends JSessionId along with the response.
+
+=> From the second request onwards the JsessionId will be internally appended along with the request.
+
+=> so that to the second request if you are trying to create a Session object then ServletContainer verifies the JsessionId within the Session table if it is avaiable then returns the same object otherwire creates new session object.
+
+refer session table diagram
+
+imp notes :-
+*********
+
+1. ServeltContainer will maintains one Session object for a browser.
+
+2. By default ServletContainer will maintain the Session object till the browser is closed.
+
+3. We can also specify time to a Session Object.
+
+HttpSesion methods :-
+******************
+public void setMaxInactiveInterval(int interval) 
+
+          Specifies the time, in seconds, between client requests before the servlet container will invalidate this session.
+
+public void invalidate() :- This will invalidates the session immediatly. We generally call this method in logout.
+
+
+
+	
+Developing LoginLogoutSessionApp
+
+
+
+
+
+
