@@ -1,0 +1,281 @@
+	Understanding Listeners and Events :-
+	**********************************
+
+=> Event :- 
+   ****		Event will be triggered when ever object state is modified.
+
+=> Event's can be accesible through Listerner's.
+
+
+=> Listener is an interface and  Event is a class.
+
+=> For every Listener  we will be having representational Event class.
+
+
+Listener interfaces :-
+*********
+
+ServletRequestListener
+
+ServletRequestAttributeListener
+
+ServletContextListener
+
+HttpSessionListener
+
+etc..
+
+
+Event class :-
+***********
+ServletRequestEvent
+
+ServletRequestAttributeEvent
+
+ServletContextEvent
+
+HttpSessionEvent
+
+etc..
+
+
+understanding javax.servlet.ServletContextListener , javax.servlet.ServletContextEvent :-
+**********************************************************
+
+=> The ServletContextListener  interface container two abstract methods.
+
+public void contextInitialized(ServletContextEvent sce) :- 
+
+** ServletContainer calls this method by passing ServletContextEvent object after creating ServletContext object.
+** This method is invoked by the ServletContainer only once.
+
+public void contextDestroyed(ServletContextEvent sce) :-
+
+ServletContainer calls this method before removing th ServletContext object. 
+
+**  ServletContextEvent is a class which contains only one method which returns ServletContext object.
+
+	public ServletContext getServletContext();
+
+
+** Whenever we deploy the application , then ServletContainer will create ServletContext object. 
+** After creating the ServletContext object then in will call the ServletContextListener class methods by passing ServletContextEvent object.
+
+** Within the ServletContextListener we will implement the common logic which can shared by all the servlet programs.
+
+
+
+Procedure to work with Listeners :-
+*********************************
+
+=> Develop a Listener class by implementing any one of the Listener interface.
+=> Configure Listener class within the web.xml file using "<listener>" tag.
+
+=> The "<listener>" tag should written before closing the "<web-app>" tag.
+
+		<web-app>
+		....	
+		....
+
+		<listener>
+		<listener-class> com.oracle.test.TestContextListener </listener-class>
+		</listerner>
+
+		</web-app>
+
+
+=> If there are more than once Listener class within your application then configure all of them by repeating  "<listener>" tag.
+
+Understanding HttpSessionListener and HttpSessionEvent :-
+******************************************************
+=> HttpSessionListener will be invoked by the ServletContainer whenever we create a "Session" object and aslo whenever we remove the Session object.
+
+The abtract methods of HttpSessionListener  interface :-
+
+1. public void sessionCreated(HttpSessionEvent se)
+
+2. public void sessionDestroyed(HttpSessionEvent se)
+
+
+=> HttpSessionEvent class have given "public HttpSession getSession()"  method which returns the "HttpSession" object.
+
+** We use HttpSessionListener and HttpSessionEvent  to know current activly loged in user's.
+Understandig javax.servlet.Filter :-
+*********************************
+=> A Filter is like a servlet. Servlet can trap only the request Where as Filter can trap both the request and response .
+
+=> Using Filter we can implement pre processing logics and post processing logics.
+
+=> Pre Processing logics :-  The Logic which is executed before processing the request.
+
+		Ex:- Athentication Logics
+
+			like validating user logins , finding number of users view the page , encryption etc..
+				
+
+
+=> Post processing logics : The Logic which is executed after processing the request.
+
+			 	Ex: Authorization logics
+
+					redering the page based on role, logging the request processing time ,decryption. 
+ 
+
+=> Inorder to develop a Filter we should implement javax.servlet.Filter interface .
+
+javax.servlet.Filter interface has given three life cycle methods :-
+
+1.public void init(FilterConfig filterConfig) throws ServletException 
+  *******************************************	
+	ServletContainer creates the Filter object at the time of starting the server itself.
+
+	Once the object creation is done then ServletContainer calls the init(FilterConfig) method by passing 	FilterConfig object. 
+
+	Here the FilterConfig object can contains the configuration information related to fiter.
+
+	init(FilterConfig) method is invoked by the ServletContainer only once through out the life cycle of a Filter.
+
+
+
+2. public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+	
+	The doFilter(..) method is invoked by the ServletContainer for every request.
+
+	Here javax.servlet.FilterChain can be used to invoke either the next filter or the next servlet program .
+
+	When we call public void doFilter(ServletRequest request, ServletResponse response) method then 	javax.servlet.FilterChain  invokes either the next filter or the next servlet program .
+
+	Before this method we will implement Pre-Processing Logic
+	
+	After this method we will implement Post-Processing logic3.
+
+
+3. public void destroy() 
+
+	This destroy() method is invoked by the ServletContainer before removing the 
+Filter.
+
+
+Ex :-
+
+
+class SampleFilter implements Filter 
+	{
+public void init(FiterConfig config)
+{
+....
+....
+}
+
+public void doFilter(HttpServletRequest request,HttpServletResponse response, FilterChain chain) 
+{
+	...
+	... // Pre processing logic
+
+	chain.doFilter(request,response); // The DemoServlet will be invoked
+
+	....// Post Processing logic
+	....
+}
+
+public void destroy()
+{
+....
+....
+}
+
+	}
+
+
+
+
+
+class DemoServlet  extends HttpServlet
+	{
+public void doGet(..)
+{
+...
+...
+}
+
+public void doPost(..)
+{
+...
+...
+}	}
+
+
+
+** Within the web.xml file a "Filter" can be configured using "<filter>" tag.
+** We can map a Filter to the Servlet program by giving Servlet URL-Pattern to the Filter.
+
+web.xml
+******
+	<web-app ...>
+
+	<servlet>
+	<servlet-name> one </servlet-name>
+	<servlet-class> DemoServlet </servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+	<servlet-name> one </servlet-name>
+	<url-pattern>/demo </url-pattern>
+	</servlet-mapping>
+
+	<filter>
+	<filter-name> two </filter-name>
+	<filter-class> SampleFilter </filter-class>
+	</filter>
+
+	<filter-mapping>
+	<filter-name> two </filter-name>
+	<url-pattern>/demo </url-pattern>
+	</filter-mapping>
+	
+	</web-app>
+
+refer :-  DemoFilterApp 
+****
+
+
+Working with annotations :-
+************************
+From Sevlet 3.0 supports annotation concept.
+
+If we annotations we no need to configure either  Servlet or  Filter within the web.xml file.
+
+We can avoid web.xml file.
+
+
+@WebServlet annotation can be used to configure a Servlet.
+
+@WebFilter annotation can be used to congure a Filter.
+
+@WebInitParam annotation can be used to congure initialization parameters either within the Servlet or within the Filter.
+
+
+Ex:-
+***
+1. @WebServlet(/demo")
+
+public class DemoServlet extends HttpServlet {
+    // implement servlet doPost() and doGet()...
+}
+
+
+
+2. @WebServlet(
+        urlPatterns = "/demo",
+        initParams = @WebInitParam(name = "location", value = "D:/Uploads")
+)
+public class DemoServlet extends HttpServlet {
+    // implement servlet doPost() and doGet()...
+}
+
+
+
+
+
+
+
