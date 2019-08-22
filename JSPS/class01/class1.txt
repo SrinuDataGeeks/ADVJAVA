@@ -1,0 +1,244 @@
+					Understanding JSP's
+					*******************
+
+=> JSP is a Server side technology.
+
+=> JSP can be a combination of both java and html code.
+
+=> JSP life cycle will be maintained by JSP Container.
+
+=> The JSP Container can be available to us in the form of Webserver's and application server's.
+
+=> So that to run the JSP file we must need a server.
+
+
+The JSP life cycle can be devided into 6 phases.
+
+	1. Translation Phase
+	2. Compilation Phase
+	3. Instantiation Phase
+	4. Initialization Phase
+	5. Servicing Phase
+	6. Destruction Phase.
+
+
+
+Translation Phase :-
+*****************
+=> The JSP file will be converted into .java file. 
+=> This job is internally taken care by the Jsp Container.
+=> Here the converted .java file is internally sub class of Servlet interface.
+
+
+		refer JSPAPI diagram.
+
+=> We can see the converted .java files in  "\apache-tomcat-9.0.0.M17\work\Catalina\localhost\{AppName}\org\apache\jsp" folder
+
+
+Compilation Phase :-
+******************* 
+Here the JSP Container compile the converted .java file .
+
+Instantiation Phase :-
+*******************
+Here the Jsp Container creates the jsp object.
+
+The Jsp Container creates the Jsp object only once through out the life cycle of a JSP.
+
+
+
+Initialization Phase:-
+********************
+
+	Here the  _jspInit() method will be called. This Initialization Phase also will be executed only once through out the life cycle of JSP.
+
+
+
+Servicing Phase:-
+*****************
+Here the  _jspService(HttpServletRequest,HttpServletResponse) method will be called. This Servicing Phase  will be executed for every request.
+
+
+Destruction Phase :-
+*****************
+JSP contaienr removes the JSP object . Before removing JSP object it will call _jspDestroy() method.
+
+
+
+
+Understanding JSP Tags :-
+***********************
+=> The JSP tags can be used to write the java code within the JSP file.
+
+=> The JSP has given three types of tags 
+
+		1. scriptlet tag ( <%  %> )
+
+		2. Expression tag ( <%=  %> )
+
+		3. Declaration Tag ( <%!  %> )
+
+
+1. scriptlet tag ( <%  %> ) :-
+   ************************
+	Within the scriptlet  tag we can write any lines of java code.
+
+		<%
+			int a = 10;
+			int b = 20;
+			int c = a + b;
+			out.println(" C Value is "+c);
+		%>
+	Within the scriptlet  tag every line should be ended with ';'.
+
+2. Expression tag ( <%=  %> )
+   **************************
+
+	The Expression tag can directly connected to output stream.
+	Expression tag can be used to print result on the response.
+	Within the Expression tag we can write only one statement at a time.
+
+		<%=  "Welcome to JSP" %>
+
+	
+	within the Expression tag we should not include ';'
+
+
+	
+=> What ever java code we write within "scriptlet ,Expression " tag's , JSP Container keeps this code within generated java class _jspService() method.
+
+
+3. Declaration Tag ( <%!  %> )
+   ***************************
+=> The Declaration tag can be used to define our own instance variables and methods.
+	
+=> JSP Container keeps the logic which we write within the Declaration Tag out side the _jspService() method.
+
+<%! 
+	
+	int a = 10;
+	int b = 20;
+
+	public int add(int a,int b)
+	{
+		return a+b;
+	}
+
+ %>
+
+
+Result is : <%= add(a,b) %>  		// Printing using Expression tag.
+
+Result is : <% 
+		int c = add(a,b);
+
+		out.println(c);
+	    %> 				//  Printing using scriptlet  tag.
+
+
+
+Within the scriptlet  tag every line should be ended with ';'.
+
+
+
+
+refer TagsDemo app
+
+	URL :- http://localhost:9080/TagsDemo/home.jsp
+
+
+Implicit Objects :-
+****************
+variable	Class 
+
+out		JspWriter
+request		HttpServletRequest
+response	HttpServletResponse
+config		ServletConfig
+application	ServletContext
+session		HttpSession
+pageContext	PageContext
+page		Object
+exception	Throwable
+
+
+We can use these implicit reference variable within the Jsp page inorder to access related  object.
+
+pageContext:-
+***********
+
+The pageContext can be used to store the data into any scope.
+
+	<%
+
+pageContext.setAttribute("name","Srinu",PageContext.SESSION_CONTEXT);
+pageContext.setAttribute("qly","B.Tech",PageContext.APPLICATION_CONTEXT);
+pageContext.setAttribute("gender","Male",PageContext.REQUEST_CONTEXT);
+pageContext.setAttribute("test","Hi",PageContext.PAGE_CONTEXT);
+
+	%>
+
+
+*******************************
+Expression Language (EL) :-
+********************
+
+JSP has given Expression Language , using this EL we can access  the data from any scope , Cookies .
+
+We should following syntax to access the data from the scope.
+
+	Syntax 1 : ${scopeType.AttrkeyName} :- It will fetch the value from the specified scope
+
+	Syntax 2 :  ${AttrkeyName}  :- Firt JSP checks   attr key  in Page scope if it is not available verifies in 				request scope if not verifies in session scope even if not varifies in appliction scope.
+
+
+Within Expression language we will use following predefined names to access the data.
+
+
+1. pageScope  :	it maps the given attribute name with the value set in the page scope
+
+2. requestScope :	it maps the given attribute name with the value set in the request scope
+
+3. sessionScope :	it maps the given attribute name with the value set in the session scope
+
+4. applicationScope : it maps the given attribute name with the value set in the application scope
+
+5. param	 :      it maps the request parameter to the single value
+
+ex:-
+	Name : <%=  request.getParameter("username")	%>
+		
+			OR
+	
+	Name :  ${param.username}
+
+
+6. paramValues  : it maps the request parameter to an array of values
+
+
+7. header	: it maps the request header name to the single value
+
+8. headerValues :	it maps the request header name to an array of values
+
+9. cookie       :	it maps the given cookie name to the cookie value
+
+	<% 
+		Cookie ck = new Cookie("username","Srinu");
+
+		 out.pritnln(" Name : "+ck.getName());
+		 out.pritnln(" Name : "+ck.getValue());
+
+	%>
+
+syntax : To Access Cookie data  ${cookie.<cookie name>.value}
+	
+UserName : ${cookie.username.value}
+
+
+10.initParam   :	it maps the initialization parameter
+
+	
+
+11.pageContext    :	it provides access to many objects request, session etc.
+
+
