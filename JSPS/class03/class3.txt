@@ -1,0 +1,23 @@
+Servlet's are very good in request processing and very poor in Presentation.
+JSP's are very good in Presentation and very poor in request processing.
+
+	
+For implementing Enterprice Application we will follow MVC Architecture :-
+
+
+		refer  MODEL-VIEW-CONTROLLER (MVC Diagram)
+
+
+MVC rules :-
+*********
+
+	=> Within an enterprice application we may have any number of view pages or any number of model classes but we should have a single controller and that must be the servlet program.
+
+	=> The complete request processing should be initiated from the controller itself.
+	
+	=> The response also should be forwarded to the user from the  controller itself.
+
+	=> One JSP programe should not communicate with another jsp programe directly. The communication should happens 
+	   through controller.
+
+
